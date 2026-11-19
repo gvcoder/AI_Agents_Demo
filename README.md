@@ -13,7 +13,7 @@ The 20 patterns are organized into 4 categories:
 ### 1. Workflows (Deterministic & Semi-Deterministic Pipelines)
 - [x] **01. Prompt Chaining** (`LangGraph`) — Breaks a task into fixed steps; a verification gate catches errors before downstream steps.
 - [x] **02. Routing** (`Pydantic AI`) — Classifies incoming queries to route to specialist prompts or fine-tuned models.
-- [ ] **03. Parallelization** (`Native Asyncio`) — Runs independent subtasks simultaneously and synthesizes results.
+- [x] **03. Parallelization** (`Native Asyncio`) — Runs independent subtasks simultaneously and synthesizes results.
 - [ ] **04. Orchestrator-Workers** (`LangGraph`) — Central orchestrator dynamically plans and delegates worker subtasks on the fly.
 - [ ] **05. Evaluator-Optimizer** (`LangGraph`) — Generator-evaluator feedback loop refining output until criteria are met.
 
@@ -128,4 +128,15 @@ AI_Agents_Demo/
   - Step 1: Discrete Fact Extraction.
   - Intermediate Gate: Semantic and factual quality check that halts on hallucination/failure.
   - Step 2: Synthesis into target format (Executive Brief, Action Items, etc.).
+
+### Version 0.2.0 - Pattern 02: Routing
+- **Implemented Pattern 02 (Routing)** with Pydantic AI:
+  - Structured intent classification (`technical_support`, `billing_inquiry`, `feature_request`, `general`) with confidence and urgency scoring.
+  - Dynamic dispatch to specialized system prompts.
+
+### Version 0.3.0 - Pattern 03: Parallelization
+- **Implemented Pattern 03 (Parallelization)** with Native Python `asyncio`:
+  - Concurrent Fan-Out across 3 specialist perspectives (*Product & Market Analyst*, *Systems & Engineering Architect*, *Security & Risk Auditor*) using `asyncio.create_task` + `asyncio.as_completed`.
+  - Real-time wall-clock vs. sequential-estimate timing comparison.
+  - Fan-In Merge Synthesizer combining all parallel analyses into the chosen target format.
 

@@ -10,7 +10,7 @@ from langchain_core.messages import SystemMessage, HumanMessage
 from langgraph.graph import StateGraph, END
 from pydantic import BaseModel, Field
 
-from backend.app.core.llm_factory import get_chat_model
+from backend.app.core.llm_factory import extract_text, get_chat_model
 from backend.app.core.events import AgentEvent
 
 # -------------------------------------------------------------------------
@@ -77,7 +77,7 @@ async def run_prompt_chaining(
     
     try:
         extract_res = await llm.ainvoke(extract_prompt)
-        extracted_facts = extract_res.content
+        extracted_facts = extract_text(extract_res.content)
     except Exception as e:
         yield AgentEvent(
             step="error",
@@ -114,7 +114,7 @@ async def run_prompt_chaining(
 
     try:
         gate_res = await llm.ainvoke(gate_prompt)
-        clean_text = gate_res.content.strip()
+        clean_text = extract_text(gate_res.content).strip()
         if "```json" in clean_text:
             clean_text = clean_text.split("```json")[1].split("```")[0].strip()
         elif "```" in clean_text:
@@ -164,7 +164,7 @@ async def run_prompt_chaining(
 
     try:
         synth_res = await llm.ainvoke(synth_prompt)
-        final_output = synth_res.content
+        final_output = extract_text(synth_res.content)
     except Exception as e:
         yield AgentEvent(
             step="error",

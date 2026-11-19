@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.app.core.config import settings
-from backend.app.api.routers import p01_prompt_chaining, p02_routing
+from backend.app.api.routers import p01_prompt_chaining, p02_routing, p03_parallelization
 
 app = FastAPI(
     title="AI Agent Design Patterns Playground",
@@ -21,6 +21,7 @@ app.add_middleware(
 # Register pattern routers
 app.include_router(p01_prompt_chaining.router, prefix="/api")
 app.include_router(p02_routing.router, prefix="/api")
+app.include_router(p03_parallelization.router, prefix="/api")
 
 @app.get("/api/health")
 async def health_check():

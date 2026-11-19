@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from pydantic import BaseModel, Field
+from pydantic import AliasChoices, BaseModel, Field
 from typing import Optional
 from sse_starlette.sse import EventSourceResponse
 
@@ -10,6 +10,7 @@ router = APIRouter(prefix="/p02-routing", tags=["02. Routing"])
 class RoutingRequest(BaseModel):
     user_query: str = Field(
         default="We received an unexpected $4,500 charge on invoice #INV-9821 this morning. Our contracted seat count hasn't changed. Could you clarify and issue a credit memo?",
+        validation_alias=AliasChoices("user_query", "input_text"),
         description="Incoming user message to classify and route"
     )
     provider: Optional[str] = Field(default=None, description="LLM provider: gemini | openai | anthropic | ollama")

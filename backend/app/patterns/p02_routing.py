@@ -44,15 +44,14 @@ class ClassificationResult(BaseModel):
 def get_pydantic_ai_model(provider: Optional[str] = None):
     prov = (provider or settings.DEFAULT_PROVIDER).lower()
     if prov == "gemini":
-        # Pydantic AI uses 'google-gla:' or 'google-vertex:'
-        return "google-gla:gemini-2.5-flash"
+        return "google:gemini-3.8-flash"
     elif prov == "openai":
         return "openai:gpt-4o-mini"
     elif prov == "anthropic":
         return "anthropic:claude-3-5-sonnet-latest"
     elif prov == "ollama":
         return f"ollama:{settings.OLLAMA_DEFAULT_MODEL}"
-    return "google-gla:gemini-2.5-flash"
+    return "google:gemini-3.8-flash"
 
 # -------------------------------------------------------------------------
 # Streamable Pattern Execution Generator

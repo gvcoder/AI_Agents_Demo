@@ -1,6 +1,24 @@
 import os
-from typing import Optional
+from typing import Any, Optional
 from backend.app.core.config import settings
+
+
+def extract_text(content: Any) -> str:
+    """
+    Normalize LangChain AIMessage.content (str or list of content blocks)
+    into a plain string.
+    """
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        parts = []
+        for item in content:
+            if isinstance(item, str):
+                parts.append(item)
+            elif isinstance(item, dict) and item.get("type") == "text":
+                parts.append(item.get("text", ""))
+        return "\n".join(p for p in parts if p)
+    return str(content)
 
 def get_chat_model(
     provider: Optional[str] = None,
@@ -16,7 +34,7 @@ def get_chat_model(
     if prov == "gemini":
         from langchain_google_genai import ChatGoogleGenerativeAI
         api_key = settings.GEMINI_API_KEY or os.getenv("GEMINI_API_KEY")
-        target_model = model_name or "gemini-2.5-flash"
+        target_model = model_name or "gemini-3.8-flash"
         return ChatGoogleGenerativeAI(
             model=target_model,
             google_api_key=api_key,

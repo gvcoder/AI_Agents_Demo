@@ -35,13 +35,15 @@ export const PATTERNS = [
     num: "03",
     name: "Parallelization",
     category: "Workflows",
+    endpoint: "/api/p03-parallelization/run",
     framework: "Asyncio Concurrency",
     tagline: "Independent subtasks run in parallel, then the results are merged.",
-    description: "Executes multiple parallel prompt queries or tool calls concurrently using asyncio.gather, then aggregates the outputs via a synthesis model.",
-    flowDiagram: "in ➔ [LLM 1 || LLM 2 || LLM 3] ➔ Merge / Synthesizer ➔ out",
+    description: "Executes multiple parallel prompt queries concurrently using asyncio, streaming each branch as it completes, then aggregates the outputs via a synthesis model.",
+    flowDiagram: "in ➔ [Product || Architect || Security] ➔ Merge / Synthesizer ➔ out",
     idealFor: "Multi-perspective reviews, simultaneous factor analysis, competitive intelligence aggregation.",
-    pros: ["Dramatic latency reduction for multiple tasks", "Diverse viewpoint synthesis"],
-    cons: ["High burst token consumption"]
+    pros: ["Dramatic latency reduction for multiple tasks", "Diverse viewpoint synthesis", "Real-time wall-clock vs sequential timing comparison"],
+    cons: ["High burst token consumption"],
+    sampleInput: "We are considering adding an autonomous voice-to-SQL assistant inside our B2B SaaS analytics dashboard. Customers will speak natural-language questions, which transcribe via Whisper, translate into read-only PostgreSQL queries by an LLM, execute against multi-tenant customer tables, and render live charts."
   },
   {
     id: "p04",

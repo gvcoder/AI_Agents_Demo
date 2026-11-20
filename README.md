@@ -14,7 +14,7 @@ The 20 patterns are organized into 4 categories:
 - [x] **01. Prompt Chaining** (`LangGraph`) — Breaks a task into fixed steps; a verification gate catches errors before downstream steps.
 - [x] **02. Routing** (`Pydantic AI`) — Classifies incoming queries to route to specialist prompts or fine-tuned models.
 - [x] **03. Parallelization** (`Native Asyncio`) — Runs independent subtasks simultaneously and synthesizes results.
-- [ ] **04. Orchestrator-Workers** (`LangGraph`) — Central orchestrator dynamically plans and delegates worker subtasks on the fly.
+- [x] **04. Orchestrator-Workers** (`LangGraph`) — Central orchestrator dynamically plans and delegates worker subtasks on the fly.
 - [ ] **05. Evaluator-Optimizer** (`LangGraph`) — Generator-evaluator feedback loop refining output until criteria are met.
 
 ### 2. Reasoning (Cognitive Search & Self-Correction)
@@ -139,4 +139,10 @@ AI_Agents_Demo/
   - Concurrent Fan-Out across 3 specialist perspectives (*Product & Market Analyst*, *Systems & Engineering Architect*, *Security & Risk Auditor*) using `asyncio.create_task` + `asyncio.as_completed`.
   - Real-time wall-clock vs. sequential-estimate timing comparison.
   - Fan-In Merge Synthesizer combining all parallel analyses into the chosen target format.
+
+### Version 0.4.0 - Pattern 04: Orchestrator-Workers
+- **Implemented Pattern 04 (Orchestrator-Workers)** with LangGraph (`StateGraph` + `Send` API):
+  - **Lead Orchestrator**: Uses structured output (`OrchestratorPlan`) to dynamically decompose an arbitrary request into 2–5 non-overlapping specialist subtasks (`W1`–`W5`) at runtime.
+  - **Dynamic Map-Reduce (`Send`)**: Spawns parallel worker nodes dynamically and accumulates results via an `operator.add` state reducer.
+  - **Synthesizer**: Merges all worker deliverables into the requested `target_format`, streamed live via `graph.astream(..., stream_mode="updates")`.
 

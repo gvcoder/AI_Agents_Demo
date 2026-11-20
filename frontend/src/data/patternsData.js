@@ -50,13 +50,15 @@ export const PATTERNS = [
     num: "04",
     name: "Orchestrator-Workers",
     category: "Workflows",
+    endpoint: "/api/p04-orchestrator-workers/run",
     framework: "LangGraph",
     tagline: "A lead LLM delegates on the fly for tasks whose subtasks can't be known up front.",
-    description: "A central orchestrator model breaks down a dynamic problem into a variable list of worker subtasks, monitors their execution, and combines results.",
-    flowDiagram: "in ➔ Orchestrator ➔ Spawns Workers [W1, W2, W?] ➔ Synthesizer ➔ out",
-    idealFor: "Multi-file codebase refactoring, unpredictable investigation tasks.",
-    pros: ["Adaptive to unknown problem sizes", "High modularity"],
-    cons: ["Requires high-tier orchestrator to avoid bad task splits"]
+    description: "A central orchestrator model dynamically decomposes a complex problem into a variable list of worker subtasks via LangGraph's Send() API, executes them in parallel, and synthesizes the results.",
+    flowDiagram: "in ➔ Orchestrator (Plan) ➔ Send([W1, W2, W?]) ➔ Synthesizer ➔ out",
+    idealFor: "Multi-file codebase refactoring, system migrations, unpredictable investigation tasks.",
+    pros: ["Adaptive to unknown problem sizes", "High modularity", "True dynamic map-reduce with LangGraph Send()"],
+    cons: ["Requires high-tier orchestrator to avoid bad task splits"],
+    sampleInput: "We need to migrate our legacy monolithic Python/Flask e-commerce backend (handling user auth, product catalog, Stripe checkout, and order email notifications) to an event-driven FastAPI + Kafka microservices architecture with zero downtime."
   },
   {
     id: "p05",

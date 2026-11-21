@@ -15,10 +15,10 @@ The 20 patterns are organized into 4 categories:
 - [x] **02. Routing** (`Pydantic AI`) — Classifies incoming queries to route to specialist prompts or fine-tuned models.
 - [x] **03. Parallelization** (`Native Asyncio`) — Runs independent subtasks simultaneously and synthesizes results.
 - [x] **04. Orchestrator-Workers** (`LangGraph`) — Central orchestrator dynamically plans and delegates worker subtasks on the fly.
-- [ ] **05. Evaluator-Optimizer** (`LangGraph`) — Generator-evaluator feedback loop refining output until criteria are met.
+- [x] **05. Evaluator-Optimizer** (`LangGraph`) — Generator-evaluator feedback loop refining output until criteria are met.
 
 ### 2. Reasoning (Cognitive Search & Self-Correction)
-- [ ] **06. ReAct** (`Smolagents`) — Interleaves Thought, Action (Tool calling), and Observation cycles.
+- [x] **06. ReAct** (`Smolagents`) — Interleaves Thought, Action (Tool calling), and Observation cycles.
 - [ ] **07. Plan-and-Execute** (`LangGraph`) — Decouples macro planning from execution with dynamic replanning on failure.
 - [ ] **08. Reflection** (`Pydantic AI / Native`) — Explicit self-critique pass evaluating tone, logic, and precision.
 - [ ] **09. Tree of Thoughts (ToT)** (`Search Algorithms - BFS/MCTS`) — Explores reasoning trees, evaluating states and pruning poor paths.
@@ -145,4 +145,15 @@ AI_Agents_Demo/
   - **Lead Orchestrator**: Uses structured output (`OrchestratorPlan`) to dynamically decompose an arbitrary request into 2–5 non-overlapping specialist subtasks (`W1`–`W5`) at runtime.
   - **Dynamic Map-Reduce (`Send`)**: Spawns parallel worker nodes dynamically and accumulates results via an `operator.add` state reducer.
   - **Synthesizer**: Merges all worker deliverables into the requested `target_format`, streamed live via `graph.astream(..., stream_mode="updates")`.
+
+### Version 0.5.0 - Pattern 05: Evaluator-Optimizer
+- **Implemented Pattern 05 (Evaluator-Optimizer)** with LangGraph (`StateGraph` cyclic loop):
+  - **Generator Node**: Produces initial drafts and iteratively revises them based on structured evaluator critique.
+  - **Evaluator Node**: Grades each draft (`EvaluationResult`: `passed`, `score` 1–10, `feedback`) against completeness, accuracy, and edge-case criteria.
+  - **Bounded Cycle**: Conditional edge loops `evaluator -> generator` until `passed=True` or `max_iterations` is reached, completing **Category 1: Workflows (01–05)**.
+
+### Version 0.6.0 - Pattern 06: ReAct
+- **Implemented Pattern 06 (ReAct)** with Smolagents (`ToolCallingAgent` + `LiteLLMModel`):
+  - **Domain Tools**: `lookup_product_catalog`, `get_discount_tier`, `check_shipping_eta`, and AST-safe `calculate_expression`.
+  - **Streaming Loop**: Streams multi-step `Action` (tool call) and `Observation` events in real time via `agent.run(..., stream=True)` before emitting `Final Answer`.
 

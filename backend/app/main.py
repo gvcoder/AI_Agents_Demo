@@ -6,6 +6,8 @@ from backend.app.api.routers import (
     p02_routing,
     p03_parallelization,
     p04_orchestrator_workers,
+    p05_evaluator_optimizer,
+    p06_react,
 )
 
 app = FastAPI(
@@ -28,6 +30,8 @@ app.include_router(p01_prompt_chaining.router, prefix="/api")
 app.include_router(p02_routing.router, prefix="/api")
 app.include_router(p03_parallelization.router, prefix="/api")
 app.include_router(p04_orchestrator_workers.router, prefix="/api")
+app.include_router(p05_evaluator_optimizer.router, prefix="/api")
+app.include_router(p06_react.router, prefix="/api")
 
 @app.get("/api/health")
 async def health_check():

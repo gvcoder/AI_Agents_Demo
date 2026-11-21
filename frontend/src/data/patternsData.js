@@ -65,13 +65,15 @@ export const PATTERNS = [
     num: "05",
     name: "Evaluator-Optimizer",
     category: "Workflows",
+    endpoint: "/api/p05-evaluator-optimizer/run",
     framework: "LangGraph",
     tagline: "Works when clear criteria exist, like code that must pass tests.",
-    description: "Iterative feedback loop between a Generator (producing drafts) and an Evaluator (grading against rigorous criteria) until passing a threshold.",
-    flowDiagram: "in ➔ Generator ➔ Draft ➔ Evaluator ➔ (Feedback loop) ➔ Pass",
-    idealFor: "Code generation with unit test passes, translation against style guides.",
-    pros: ["Substantially elevates output quality", "Self-correcting without human intervention"],
-    cons: ["Can loop indefinitely without max-retry caps", "Higher token cost"]
+    description: "Iterative feedback loop between a Generator (producing drafts) and an Evaluator (grading against rigorous criteria) until passing a quality threshold or hitting the max-iteration cap.",
+    flowDiagram: "in ➔ Generator ➔ Draft ➔ Evaluator ➔ (Feedback Loop) ➔ Pass",
+    idealFor: "Code generation with unit test passes, translation against style guides, strict rubric compliance.",
+    pros: ["Substantially elevates output quality", "Self-correcting without human intervention", "Bounded by max-retry cap"],
+    cons: ["Can loop up to max_iterations if criteria are strict", "Higher token cost"],
+    sampleInput: "Write a Python rate-limiter class `TokenBucket` that is thread-safe, supports configurable refill rate and burst capacity, includes a `try_consume(tokens=1)` method, handles monotonic time safely, and includes 3 concise unit test cases."
   },
 
   // 2. Reasoning
@@ -80,13 +82,15 @@ export const PATTERNS = [
     num: "06",
     name: "ReAct",
     category: "Reasoning",
+    endpoint: "/api/p06-react/run",
     framework: "Smolagents",
     tagline: "Reasons, acts with a tool, reads the result, and repeats until done.",
-    description: "Combines Reasoning and Acting in a continuous Thought ➔ Action ➔ Observation loop to solve dynamic queries.",
+    description: "Combines Reasoning and Acting in a continuous Thought ➔ Action ➔ Observation loop using Smolagents ToolCallingAgent and deterministic domain tools.",
     flowDiagram: "Thought ➔ Action (Tool Call) ➔ Observation ➔ Thought ➔ Final Answer",
-    idealFor: "Information seeking, API orchestration, open-ended problem exploration.",
+    idealFor: "Information seeking, API orchestration, multi-step calculations and lookups.",
     pros: ["Adaptive and transparent step-by-step trace", "Easily handles unexpected tool errors"],
-    cons: ["Can get trapped in unhelpful loops if reasoning derails"]
+    cons: ["Can get trapped in unhelpful loops if reasoning derails"],
+    sampleInput: "A customer in EU wants to buy 15 units of EdgeGateway X1 and 8 licenses of CloudSync Pro. Check their unit prices and stock, apply any eligible volume discount tier, add EU shipping, and calculate the final total in USD."
   },
   {
     id: "p07",

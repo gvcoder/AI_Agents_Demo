@@ -19,7 +19,7 @@ The 20 patterns are organized into 4 categories:
 
 ### 2. Reasoning (Cognitive Search & Self-Correction)
 - [x] **06. ReAct** (`Smolagents`) — Interleaves Thought, Action (Tool calling), and Observation cycles.
-- [ ] **07. Plan-and-Execute** (`LangGraph`) — Decouples macro planning from execution with dynamic replanning on failure.
+- [x] **07. Plan-and-Execute** (`LangGraph`) — Decouples macro planning from execution with dynamic replanning on failure.
 - [ ] **08. Reflection** (`Pydantic AI / Native`) — Explicit self-critique pass evaluating tone, logic, and precision.
 - [ ] **09. Tree of Thoughts (ToT)** (`Search Algorithms - BFS/MCTS`) — Explores reasoning trees, evaluating states and pruning poor paths.
 - [ ] **10. Self-Consistency** (`Native Asyncio`) — Samples multiple reasoning trajectories in parallel and applies majority voting.
@@ -156,4 +156,10 @@ AI_Agents_Demo/
 - **Implemented Pattern 06 (ReAct)** with Smolagents (`ToolCallingAgent` + `LiteLLMModel`):
   - **Domain Tools**: `lookup_product_catalog`, `get_discount_tier`, `check_shipping_eta`, and AST-safe `calculate_expression`.
   - **Streaming Loop**: Streams multi-step `Action` (tool call) and `Observation` events in real time via `agent.run(..., stream=True)` before emitting `Final Answer`.
+
+### Version 0.7.0 - Pattern 07: Plan-and-Execute
+- **Implemented Pattern 07 (Plan-and-Execute)** with LangGraph (`StateGraph`):
+  - **Macro Planner**: Produces an ordered 3–5 step `Plan` up front.
+  - **Step Executor**: Executes one step at a time with accumulated `past_steps` context and structured `StepExecutionResult` (`success`, `output`, `blocker_reason`).
+  - **Dynamic Replanner & Synthesizer**: Revises remaining steps if a step hits a blocker, then synthesizes all completed steps into the target format.
 

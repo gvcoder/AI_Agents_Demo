@@ -97,13 +97,15 @@ export const PATTERNS = [
     num: "07",
     name: "Plan-and-Execute",
     category: "Reasoning",
+    endpoint: "/api/p07-plan-and-execute/run",
     framework: "LangGraph",
     tagline: "A planner writes the steps up front; an executor runs them and replans.",
-    description: "Separates the macro reasoning phase (planner) from the micro execution phase (executor). Replans only when a step encounters failure.",
+    description: "Separates the macro reasoning phase (planner) from the micro execution phase (executor) in LangGraph, with a dynamic replanner if a step encounters a blocker.",
     flowDiagram: "Planner ➔ Step List ➔ Executor (Step 1...N) ➔ (Replan if fail) ➔ out",
-    idealFor: "Complex multi-stage workflows, data pipelines, technical investigations.",
-    pros: ["Maintains long-horizon focus", "Separates concerns clean and inspectable"],
-    cons: ["Initial plan can be invalidated by unforeseen intermediate results"]
+    idealFor: "Complex multi-stage workflows, database migrations, technical investigations.",
+    pros: ["Maintains long-horizon focus", "Separates concerns cleanly and inspectably", "Adapts via dynamic replanning"],
+    cons: ["Initial plan can be invalidated by unforeseen intermediate results"],
+    sampleInput: "Design a zero-downtime database migration plan to move a 500GB PostgreSQL multi-tenant production database from AWS RDS to Cloud SQL, including schema validation, dual-write/CDC replication, cutover verification, and rollback."
   },
   {
     id: "p08",

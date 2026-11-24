@@ -112,13 +112,15 @@ export const PATTERNS = [
     num: "08",
     name: "Reflection",
     category: "Reasoning",
+    endpoint: "/api/p08-reflection/run",
     framework: "Pydantic AI / Native",
     tagline: "The model reviews its own output and fixes it before answering.",
-    description: "The model performs an explicit self-critique pass on its initial draft, evaluating adherence to tone, logic, and safety before producing the final response.",
+    description: "The model performs an explicit structured self-critique pass on its initial draft, scoring clarity, logic, and tone before revising into a verified final response.",
     flowDiagram: "Draft ➔ Self-Critic (Rubric) ➔ Revise ➔ Verified Output",
-    idealFor: "High-stakes communications, copywriting, code refactoring.",
-    pros: ["Immediate quality jump on zero-shot outputs", "Simple to implement"],
-    cons: ["Models can sometimes double down on their own blind spots"]
+    idealFor: "High-stakes communications, incident post-mortems, copywriting, code refactoring.",
+    pros: ["Immediate quality jump on zero-shot outputs", "Simple to implement", "Structured self-critique rubric"],
+    cons: ["Models can sometimes double down on their own blind spots"],
+    sampleInput: "Draft a crisp customer incident post-mortem email explaining a 22-minute API latency spike caused by a misconfigured Redis connection pool during peak traffic, detailing root cause, customer impact, immediate fix, and long-term safeguards."
   },
   {
     id: "p09",

@@ -20,7 +20,7 @@ The 20 patterns are organized into 4 categories:
 ### 2. Reasoning (Cognitive Search & Self-Correction)
 - [x] **06. ReAct** (`Smolagents`) — Interleaves Thought, Action (Tool calling), and Observation cycles.
 - [x] **07. Plan-and-Execute** (`LangGraph`) — Decouples macro planning from execution with dynamic replanning on failure.
-- [ ] **08. Reflection** (`Pydantic AI / Native`) — Explicit self-critique pass evaluating tone, logic, and precision.
+- [x] **08. Reflection** (`Pydantic AI / Native`) — Explicit self-critique pass evaluating tone, logic, and precision.
 - [ ] **09. Tree of Thoughts (ToT)** (`Search Algorithms - BFS/MCTS`) — Explores reasoning trees, evaluating states and pruning poor paths.
 - [ ] **10. Self-Consistency** (`Native Asyncio`) — Samples multiple reasoning trajectories in parallel and applies majority voting.
 
@@ -162,4 +162,10 @@ AI_Agents_Demo/
   - **Macro Planner**: Produces an ordered 3–5 step `Plan` up front.
   - **Step Executor**: Executes one step at a time with accumulated `past_steps` context and structured `StepExecutionResult` (`success`, `output`, `blocker_reason`).
   - **Dynamic Replanner & Synthesizer**: Revises remaining steps if a step hits a blocker, then synthesizes all completed steps into the target format.
+
+### Version 0.8.0 - Pattern 08: Reflection
+- **Implemented Pattern 08 (Reflection)** with Pydantic AI (`Draft ➔ Self-Critic ➔ Revise`):
+  - **Pass 1 (Initial Drafter)**: Generates an initial zero-shot draft in the target format.
+  - **Pass 2 (Self-Critic)**: Uses structured `ReflectionCritique` output (`clarity_score`, `logic_score`, `tone_score`, `flaws_found`, `improvement_plan`, `needs_revision`).
+  - **Pass 3 (Reviser)**: Applies the improvement plan to produce the verified final response.
 

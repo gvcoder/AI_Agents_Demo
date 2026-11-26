@@ -127,13 +127,15 @@ export const PATTERNS = [
     num: "09",
     name: "Tree of Thoughts (ToT)",
     category: "Reasoning",
+    endpoint: "/api/p09-tree-of-thoughts/run",
     framework: "Algorithmic Search (BFS/DFS)",
     tagline: "Explores several reasoning paths as a tree instead of one chain.",
-    description: "Generates multiple candidate thoughts at each reasoning step, evaluates the promise of each branch, and uses heuristic search (BFS/DFS) to prune dead ends.",
+    description: "Generates multiple candidate thoughts at each reasoning depth, scores each branch in parallel, prunes weak paths via Beam/BFS search, and synthesizes the ★ Best Path.",
     flowDiagram: "Thought ➔ [Branch A, Branch B, Branch C] ➔ Score & Prune ➔ Optimal Path",
-    idealFor: "Game playing (24 game, Chess), complex constraint satisfaction, puzzles.",
-    pros: ["Finds global optima missed by greedy chain-of-thought", "Backtracking ability"],
-    cons: ["High computational complexity and API calls"]
+    idealFor: "Game playing (24 game, Chess), complex constraint satisfaction, puzzles, architecture placement.",
+    pros: ["Finds global optima missed by greedy chain-of-thought", "Backtracking & pruning ability"],
+    cons: ["Higher computational complexity and API calls"],
+    sampleInput: "You have 3 servers (2 CPUs each) and 5 microservices with CPU/memory/latency constraints: Auth (1 CPU, must be isolated or paired only with Gateway), Gateway (1 CPU, public-facing), Billing (1.5 CPU, PCI isolated from Gateway), Search (1.5 CPU), and Worker (1 CPU). Find a valid placement across the 3 servers minimizing cross-server network hops."
   },
   {
     id: "p10",

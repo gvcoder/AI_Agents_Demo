@@ -21,7 +21,7 @@ The 20 patterns are organized into 4 categories:
 - [x] **06. ReAct** (`Smolagents`) — Interleaves Thought, Action (Tool calling), and Observation cycles.
 - [x] **07. Plan-and-Execute** (`LangGraph`) — Decouples macro planning from execution with dynamic replanning on failure.
 - [x] **08. Reflection** (`Pydantic AI / Native`) — Explicit self-critique pass evaluating tone, logic, and precision.
-- [ ] **09. Tree of Thoughts (ToT)** (`Search Algorithms - BFS/MCTS`) — Explores reasoning trees, evaluating states and pruning poor paths.
+- [x] **09. Tree of Thoughts (ToT)** (`Search Algorithms - BFS/MCTS`) — Explores reasoning trees, evaluating states and pruning poor paths.
 - [ ] **10. Self-Consistency** (`Native Asyncio`) — Samples multiple reasoning trajectories in parallel and applies majority voting.
 
 ### 3. Capabilities (Tools, Retrieval, Memory & Safety)
@@ -168,4 +168,10 @@ AI_Agents_Demo/
   - **Pass 1 (Initial Drafter)**: Generates an initial zero-shot draft in the target format.
   - **Pass 2 (Self-Critic)**: Uses structured `ReflectionCritique` output (`clarity_score`, `logic_score`, `tone_score`, `flaws_found`, `improvement_plan`, `needs_revision`).
   - **Pass 3 (Reviser)**: Applies the improvement plan to produce the verified final response.
+
+### Version 0.9.0 - Pattern 09: Tree of Thoughts (ToT)
+- **Implemented Pattern 09 (Tree of Thoughts)** with Native Python `asyncio` Beam / BFS Search:
+  - **Parallel Branching**: Expands each frontier node into `branching_factor` (default `3`) distinct reasoning branches concurrently.
+  - **Heuristic Scoring & Pruning**: Evaluates all candidates in parallel (`ThoughtScore` 1–10) and prunes weaker branches, keeping top `beam_width` (default `2`) nodes per depth.
+  - **Optimal Path Synthesis**: Selects the `★ Best Path` at `max_depth` and synthesizes the final solution.
 

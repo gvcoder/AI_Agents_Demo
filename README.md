@@ -25,7 +25,7 @@ The 20 patterns are organized into 4 categories:
 - [x] **10. Self-Consistency** (`Native Asyncio`) — Samples multiple reasoning trajectories in parallel and applies majority voting.
 
 ### 3. Capabilities (Tools, Retrieval, Memory & Safety)
-- [ ] **11. Tool Use** (`Pydantic AI`) — Type-safe structured function calling with schema validation.
+- [x] **11. Tool Use** (`Pydantic AI`) — Type-safe structured function calling with schema validation.
 - [ ] **12. Agentic RAG** (`LlamaIndex`) — Autonomous multi-turn retrieval with dynamic query rewriting and chunk grading.
 - [ ] **13. Memory** (`LlamaIndex / LangGraph`) — Dual-tier memory (short-term buffer + long-term vector/key-value store).
 - [ ] **14. Human-in-the-Loop** (`LangGraph`) — Graph breakpoints pausing high-stakes actions for operator review/approval.
@@ -179,4 +179,9 @@ AI_Agents_Demo/
 - **Implemented Pattern 10 (Self-Consistency)** with Native Python `asyncio`:
   - **Parallel Stochastic Sampling**: Runs `num_samples` (default `5`) independent chain-of-thought trajectories concurrently at `temperature > 0` (`ReasoningSample`: `reasoning`, `final_answer`).
   - **Majority Vote Aggregator**: Normalizes candidate answers, tallies votes via `Counter`, and emits the consensus answer with agreement percentage, completing **Category 2: Reasoning (06–10)**.
+
+### Version 0.11.0 - Pattern 11: Tool Use
+- **Implemented Pattern 11 (Tool Use)** with Pydantic AI:
+  - **Type-Safe Tools**: `get_cloud_spend`, `convert_currency`, and `forecast_annual_run_rate` with `Literal` & Pydantic schema validation.
+  - **Live Inspection**: Streams each `ToolCallPart` (JSON arguments) and `ToolReturnPart` (structured JSON result) via `agent.iter()` before emitting `Final Answer`.
 

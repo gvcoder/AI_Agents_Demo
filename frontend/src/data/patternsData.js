@@ -159,13 +159,15 @@ export const PATTERNS = [
     num: "11",
     name: "Tool Use",
     category: "Capabilities",
+    endpoint: "/api/p11-tool-use/run",
     framework: "Pydantic AI",
     tagline: "The model returns a structured call; your code runs it and returns the result.",
-    description: "Empowers LLMs with deterministic capability through strictly validated JSON schemas and external function invocations.",
+    description: "Empowers LLMs with deterministic capability through strictly validated Pydantic JSON schemas and external function invocations (`get_cloud_spend`, `convert_currency`, `forecast_annual_run_rate`).",
     flowDiagram: "LLM ➔ Structured Tool Request (JSON) ➔ Tool Runner ➔ Observation ➔ LLM",
-    idealFor: "Calculators, database queries, web scraping, internal microservice triggers.",
-    pros: ["Grounds LLM in external reality", "Zero hallucination for arithmetic/data retrieval"],
-    cons: ["Subject to parameter hallucination without strict schemas"]
+    idealFor: "Calculators, database queries, FinOps lookups, internal microservice triggers.",
+    pros: ["Grounds LLM in external reality", "Zero hallucination for arithmetic/data retrieval", "Strict Literal & Pydantic parameter validation"],
+    cons: ["Subject to parameter hallucination without strict schemas"],
+    sampleInput: "Check our 2026-11 cloud spend for `database` and `ai_inference`, identify which ones are over budget, forecast the 12-month total USD spend for `ai_inference` assuming 5% monthly growth, and convert that 12-month total to EUR."
   },
   {
     id: "p12",

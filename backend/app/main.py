@@ -11,6 +11,7 @@ from backend.app.api.routers import (
     p07_plan_and_execute,
     p08_reflection,
     p09_tree_of_thoughts,
+    p10_self_consistency,
 )
 
 app = FastAPI(
@@ -38,6 +39,7 @@ app.include_router(p06_react.router, prefix="/api")
 app.include_router(p07_plan_and_execute.router, prefix="/api")
 app.include_router(p08_reflection.router, prefix="/api")
 app.include_router(p09_tree_of_thoughts.router, prefix="/api")
+app.include_router(p10_self_consistency.router, prefix="/api")
 
 @app.get("/api/health")
 async def health_check():

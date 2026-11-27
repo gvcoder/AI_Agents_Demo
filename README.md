@@ -22,7 +22,7 @@ The 20 patterns are organized into 4 categories:
 - [x] **07. Plan-and-Execute** (`LangGraph`) — Decouples macro planning from execution with dynamic replanning on failure.
 - [x] **08. Reflection** (`Pydantic AI / Native`) — Explicit self-critique pass evaluating tone, logic, and precision.
 - [x] **09. Tree of Thoughts (ToT)** (`Search Algorithms - BFS/MCTS`) — Explores reasoning trees, evaluating states and pruning poor paths.
-- [ ] **10. Self-Consistency** (`Native Asyncio`) — Samples multiple reasoning trajectories in parallel and applies majority voting.
+- [x] **10. Self-Consistency** (`Native Asyncio`) — Samples multiple reasoning trajectories in parallel and applies majority voting.
 
 ### 3. Capabilities (Tools, Retrieval, Memory & Safety)
 - [ ] **11. Tool Use** (`Pydantic AI`) — Type-safe structured function calling with schema validation.
@@ -174,4 +174,9 @@ AI_Agents_Demo/
   - **Parallel Branching**: Expands each frontier node into `branching_factor` (default `3`) distinct reasoning branches concurrently.
   - **Heuristic Scoring & Pruning**: Evaluates all candidates in parallel (`ThoughtScore` 1–10) and prunes weaker branches, keeping top `beam_width` (default `2`) nodes per depth.
   - **Optimal Path Synthesis**: Selects the `★ Best Path` at `max_depth` and synthesizes the final solution.
+
+### Version 0.10.0 - Pattern 10: Self-Consistency
+- **Implemented Pattern 10 (Self-Consistency)** with Native Python `asyncio`:
+  - **Parallel Stochastic Sampling**: Runs `num_samples` (default `5`) independent chain-of-thought trajectories concurrently at `temperature > 0` (`ReasoningSample`: `reasoning`, `final_answer`).
+  - **Majority Vote Aggregator**: Normalizes candidate answers, tallies votes via `Counter`, and emits the consensus answer with agreement percentage, completing **Category 2: Reasoning (06–10)**.
 

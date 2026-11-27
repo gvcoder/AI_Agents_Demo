@@ -1,7 +1,7 @@
 # 🧪 Automated QA & Test Report
 
-**Last Updated:** 2026-11-26  
-**Implemented Patterns:** 9 / 20  
+**Last Updated:** 2026-11-27  
+**Implemented Patterns:** 10 / 20  
 **Build & Live Test Status:** ✅ PASS  
 
 ---
@@ -19,9 +19,10 @@
 | **07** | Plan-and-Execute | LangGraph | ✅ `/api/p07-plan-and-execute/run` | ✅ PASS | ✅ PASS (`start → plan_created → 4x step_complete → completed`) |
 | **08** | Reflection | Pydantic AI | ✅ `/api/p08-reflection/run` | ✅ PASS | ✅ PASS (`start → step_complete (Draft) → critique (Rubric) → completed (Revised)`) |
 | **09** | Tree of Thoughts (ToT) | Algorithmic Search (Beam/BFS) | ✅ `/api/p09-tree-of-thoughts/run` | ✅ PASS | ✅ PASS (`start → 2x (Branching → Score & Prune) → ★ Best Path → completed`) |
+| **10** | Self-Consistency | Native Asyncio | ✅ `/api/p10-self-consistency/run` | ✅ PASS | ✅ PASS (`start → 5x Sample → vote_tally → completed`) |
 
 ---
 
-## Latest Run Notes (2026-11-26)
-- **Verification Script:** `.venv/bin/python .agents/skills/pattern-qa-report/scripts/verify_patterns.py` — backend OpenAPI routes (`/api/health` + `p01`–`p09`) and frontend `vite build` passed.
-- **Live SSE Smoke Test (`p09-tree-of-thoughts` on `gemini-3.8-flash`):** Returned `HTTP 200`; expanded 2 depths of candidate branches, scored and pruned via Beam/BFS search, selected `★ Best Path`, and emitted `completed`.
+## Latest Run Notes (2026-11-27)
+- **Verification Script:** `.venv/bin/python .agents/skills/pattern-qa-report/scripts/verify_patterns.py` — backend OpenAPI routes (`/api/health` + `p01`–`p10`) and frontend `vite build` passed.
+- **Live SSE Smoke Test (`p10-self-consistency` on `gemini-3.8-flash`):** Returned `HTTP 200`; ran 5 parallel reasoning samples at `temperature=0.7`, tallied votes via `Majority Vote Aggregator`, and emitted `completed` with the consensus answer.

@@ -142,13 +142,15 @@ export const PATTERNS = [
     num: "10",
     name: "Self-Consistency",
     category: "Reasoning",
+    endpoint: "/api/p10-self-consistency/run",
     framework: "Native Asyncio",
     tagline: "Asks the same question several times and keeps the most common answer.",
-    description: "Samples N distinct reasoning trajectories at temperature > 0 and picks the majority vote or consensus solution.",
+    description: "Samples N distinct reasoning trajectories concurrently at temperature > 0 and tallies a majority vote to select the consensus answer.",
     flowDiagram: "Input ➔ [Sample 1, Sample 2, Sample 3... N] ➔ Majority Vote ➔ Consensus",
     idealFor: "Mathematical reasoning, symbolic logic, deterministic classification.",
-    pros: ["Eliminates stochastic hallucinations", "Very reliable accuracy improvement"],
-    cons: ["Linear multiplication of token cost (N calls)"]
+    pros: ["Eliminates stochastic hallucinations", "Very reliable accuracy improvement", "Concurrent sampling keeps latency low"],
+    cons: ["Linear multiplication of token cost (N calls)"],
+    sampleInput: "A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. If a store sells 12 balls at a 20% discount off the original ball price, how much do the 12 balls cost in total?"
   },
 
   // 3. Capabilities
